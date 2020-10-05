@@ -2,16 +2,9 @@
     <div class="container">
         <div class="swiper-container">
             <div class="swiper-wrapper">
-              <div class="swiper-slide"><img src="@/assets/images/1.jpg" alt=""></div>
-              <div class="swiper-slide"><img src="@/assets/images/2.jpg" alt=""></div>
-              <div class="swiper-slide"><img src="@/assets/images/3.jpg" alt=""></div>
-              <div class="swiper-slide"><img src="@/assets/images/4.jpg" alt=""></div>
-              <div class="swiper-slide"><img src="@/assets/images/5.jpg" alt=""></div>
-              <div class="swiper-slide"><img src="@/assets/images/6.jpg" alt=""></div>
-              <div class="swiper-slide"><img src="@/assets/images/2.jpg" alt=""></div>
-              <div class="swiper-slide"><img src="@/assets/images/1.jpg" alt=""></div>
-              <div class="swiper-slide"><img src="@/assets/images/5.jpg" alt=""></div>
-              <div class="swiper-slide"><img src="@/assets/images/4.jpg" alt=""></div>
+              <div class="swiper-slide" v-for="(item,index) in bannerInfo" :key="index">
+				  <img :src="item.imageUrl">
+			  </div>
             </div>
             <!-- Add Pagination -->
             <div class="swiper-pagination"></div>
@@ -35,9 +28,9 @@ window.onload = function() {
         paginationClickable:true,
         prevButton:'.swiper-button-prev',
         nextButton:'.swiper-button-next',
-        onInit:function(swiper){
-            swiper.slides[2].className="swiper-slide swiper-slide-active";//第一次打开不要动画
-            },
+			onInit:function(swiper){
+				swiper.slides[2].className="swiper-slide swiper-slide-active";//第一次打开不要动画
+				},
         breakpoints: { 
                 668: {
                     slidesPerView: 1,
@@ -46,7 +39,26 @@ window.onload = function() {
         });
 }
 export default {
-	name : "Banner"
+	name : "Banner",
+	data(){
+		return {
+			// 轮播图数据列表
+			bannerInfo:[],
+		}
+	},
+	mounted(){
+		this.getBannerInfo();
+	},
+	methods:{
+		// 获取轮播图数据
+		getBannerInfo() {
+                this.axios.get('banner').then(res => {
+                    if (res.status !== 200) this.$message.error('轮播图数据获取失败')
+					this.bannerInfo = res.data.banners
+					// console.log(this.bannerInfo)
+                })
+            },
+	}
 }
 </script>
 

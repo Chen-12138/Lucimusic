@@ -2,80 +2,82 @@
     <div class="fluid">
         <div class="playlist-wrapper container">
             <div class="filter shadow">
-                <div class="title flex-center">
+                <div class="title flex-center" @click="openFilter">
                     全部
                     <i class="iconfont icon-xiajiantou"></i>
-                    <div class="filter-box shadow">
-                        <div class="item">
-                            <h2>
-                                <i class="iconfont icon-icon"> </i>
-                                语种
-                            </h2>
-                            <ul>
-                                <li>华语</li>
-                                <li>欧美</li>
-                                <li>日语</li>
-                                <li>韩语</li>
-                                <li>粤语</li>
-                            </ul>
+                    <transition name="fade">
+                        <div class="filter-box shadow" v-if="showFilter">
+                            <div class="item">
+                                <h2>
+                                    <i class="iconfont icon-icon"> </i>
+                                    语种
+                                </h2>
+                                <ul>
+                                    <li>华语</li>
+                                    <li>欧美</li>
+                                    <li>日语</li>
+                                    <li>韩语</li>
+                                    <li>粤语</li>
+                                </ul>
+                            </div>
+                            <div class="item">
+                                <h2>
+                                    <i class="iconfont icon-fengge"> </i>
+                                    风格
+                                </h2>
+                                <ul>
+                                    <li>流行</li>
+                                    <li>摇滚</li>
+                                    <li>民谣</li>
+                                    <li>电子</li>
+                                    <li>舞曲</li>
+                                    <li>说唱</li>
+                                    <li>轻音乐</li>
+                                    <li>爵士</li>
+                                    <li>乡村</li>
+                                    <li>古典</li>
+                                    <li>民族</li>
+                                    <li>朋克</li>
+                                    <li>金属</li>
+                                    <li>古风</li>
+                                </ul>
+                            </div>
+                            <div class="item">
+                                <h2>
+                                    <i class="iconfont icon-changjing"> </i>
+                                    场景
+                                </h2>
+                                <ul>
+                                    <li>清晨</li>
+                                    <li>夜晚</li>
+                                    <li>学习</li>
+                                    <li>工作</li>
+                                    <li>午休</li>
+                                    <li>下午茶</li>
+                                    <li>驾车</li>
+                                    <li>运动</li>
+                                    <li>旅行</li>
+                                </ul>
+                            </div>
+                            <div class="item">
+                                <h2>
+                                    <i class="iconfont icon-qinggan"> </i>
+                                    情感
+                                </h2>
+                                <ul>
+                                    <li>怀旧</li>
+                                    <li>清新</li>
+                                    <li>治愈</li>
+                                    <li>放松</li>
+                                    <li>孤独</li>
+                                    <li>兴奋</li>
+                                    <li>快乐</li>
+                                    <li>安静</li>
+                                    <li>思念</li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="item">
-                            <h2>
-                                <i class="iconfont icon-fengge"> </i>
-                                风格
-                            </h2>
-                            <ul>
-                                <li>流行</li>
-                                <li>摇滚</li>
-                                <li>民谣</li>
-                                <li>电子</li>
-                                <li>舞曲</li>
-                                <li>说唱</li>
-                                <li>轻音乐</li>
-                                <li>爵士</li>
-                                <li>乡村</li>
-                                <li>古典</li>
-                                <li>民族</li>
-                                <li>朋克</li>
-                                <li>金属</li>
-                                <li>古风</li>
-                            </ul>
-                        </div>
-                        <div class="item">
-                            <h2>
-                                <i class="iconfont icon-changjing"> </i>
-                                场景
-                            </h2>
-                            <ul>
-                                <li>清晨</li>
-                                <li>夜晚</li>
-                                <li>学习</li>
-                                <li>工作</li>
-                                <li>午休</li>
-                                <li>下午茶</li>
-                                <li>驾车</li>
-                                <li>运动</li>
-                                <li>旅行</li>
-                            </ul>
-                        </div>
-                        <div class="item">
-                            <h2>
-                                <i class="iconfont icon-qinggan"> </i>
-                                情感
-                            </h2>
-                            <ul>
-                                <li>怀旧</li>
-                                <li>清新</li>
-                                <li>治愈</li>
-                                <li>放松</li>
-                                <li>孤独</li>
-                                <li>兴奋</li>
-                                <li>快乐</li>
-                                <li>安静</li>
-                                <li>思念</li>
-                            </ul>
-                        </div>
-                    </div>
+                    </transition>
                 </div>
                 <div class="hot-tag flex-row">
                     <p>热门标签：</p>
@@ -647,10 +649,39 @@
 <script>
 export default {
     name : "Playlist",
+    data(){
+        return {
+            showFilter : false,
+            
+        }
+    },
+    methods:{
+        openFilter(){
+            this.showFilter = !this.showFilter;
+        }
+    }
 }
 </script>
 
 <style scoped>
+/* fade动画 */
+.fade-enter {
+  opacity: 0;
+  transform: translate3d(0, 30px, 0);
+}
+
+.fade-enter-active {
+  transition: all 0.5s;
+}
+
+.fade-leave-to {
+  opacity: 0;
+  transform: translate3d(0, 30px, 0);
+}
+
+.fade-leave-active {
+  transition: all 0.5s;
+}
 /* playlist页面 */
 .playlist-wrapper .filter{width: 100%;height: 40px;margin-bottom: 20px;padding-right: 20px;display: flex;}
 .playlist-wrapper .filter .title{height: 100%;width: 90px; background: #fa2800;border-radius: 5px 0 0 5px;color: #fff;
@@ -662,8 +693,9 @@ color: #000;position: absolute;top: 50px;right: -630px;z-index: 100;padding: 15p
 .playlist-wrapper .filter .title .filter-box .item h2{display: flex;align-items: center;font-size: 15px;color: #161e27;margin-bottom: 15px;}
 .playlist-wrapper .filter .title .filter-box .item h2 i{font-size: 16px;margin-right: 5px;margin-left: 0;}
 .playlist-wrapper .filter .title .filter-box .item ul{display: flex;flex-wrap: wrap;}
+.playlist-wrapper .filter .title .filter-box .item ul li:hover{background: #fa2800;color: #fff;}
 .playlist-wrapper .filter .title .filter-box .item ul li{background: #f7f7f7;border-radius: 16px;margin: 0 10px 10px 0;cursor: pointer;font-size: 12px;
-color: #161e27;padding: 8px 18px;}
+color: #161e27;padding: 8px 18px;transition: all .4s;}
 .playlist-wrapper .filter .hot-tag{flex: 1;}
 .playlist-wrapper .filter .hot-tag ul li{margin: 0 5px;padding-right: 10px;cursor: pointer;}
 .playlist-wrapper .filter .type{display: flex;}

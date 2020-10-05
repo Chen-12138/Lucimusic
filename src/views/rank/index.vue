@@ -5,68 +5,22 @@
             <div class="module">
                 <h2 class="title">云音乐特色榜</h2>
                 <div class="list">
-                    <div class="item">
+                    <div class="item" v-for="item in TopList" :key="item.id">
                         <div class="wrapper">
                             <a href="">
                                 <div class="cover">
                                     <div class="img">
-                                        <img src="https://p1.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=300y300">
+                                        <img :src="item.coverImgUrl">
                                     </div>
                                     <div class="count flex-center">
                                         <i class="arrow"></i>
-                                        <span>35亿</span>
+                                        <span>{{item.playCount | formatPlaycount}}</span>
                                     </div>
                                 </div>
                             </a>
-        
                         </div>
-                    </div>
-                    <div class="item">
-                        <div class="wrapper">
-                            <a href="">
-                                <div class="cover">
-                                    <div class="img">
-                                        <img src="https://p1.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=300y300">
-                                    </div>
-                                    <div class="count flex-center">
-                                        <i class="arrow"></i>
-                                        <span>35亿</span>
-                                    </div>
-                                </div>
-                            </a>
-        
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="wrapper">
-                            <a href="">
-                                <div class="cover">
-                                    <div class="img">
-                                        <img src="https://p1.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=300y300">
-                                    </div>
-                                    <div class="count flex-center">
-                                        <i class="arrow"></i>
-                                        <span>35亿</span>
-                                    </div>
-                                </div>
-                            </a>
-        
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="wrapper">
-                            <a href="">
-                                <div class="cover">
-                                    <div class="img">
-                                        <img src="https://p1.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=300y300">
-                                    </div>
-                                    <div class="count flex-center">
-                                        <i class="arrow"></i>
-                                        <span>35亿</span>
-                                    </div>
-                                </div>
-                            </a>
-        
+                        <div class="info">
+                            <h2 class="ellipsis-two">{{item.name}}</h2>
                         </div>
                     </div>
                 </div>
@@ -74,7 +28,25 @@
             <div class="module">
                 <h2 class="title">全球媒体榜</h2>
                 <div class="list">
-                    <div class="item">
+                    <div class="item" v-for="item in rankList" :key="item.id">
+                        <div class="wrapper">
+                            <a href="">
+                                <div class="cover">
+                                    <div class="img">
+                                        <img :src="item.coverImgUrl">
+                                    </div>
+                                    <div class="count flex-center">
+                                        <i class="arrow"></i>
+                                        <span>{{item.playCount | formatPlaycount}}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="info">
+                            <h2 class="ellipsis-two">{{item.name}}</h2>
+                        </div>
+                    </div>
+                    <!-- <div class="item">
                         <div class="wrapper">
                             <a href="">
                                 <div class="cover">
@@ -89,183 +61,7 @@
                             </a>
         
                         </div>
-                    </div>
-                    <div class="item">
-                        <div class="wrapper">
-                            <a href="">
-                                <div class="cover">
-                                    <div class="img">
-                                        <img src="https://p1.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=300y300">
-                                    </div>
-                                    <div class="count flex-center">
-                                        <i class="arrow"></i>
-                                        <span>35亿</span>
-                                    </div>
-                                </div>
-                            </a>
-        
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="wrapper">
-                            <a href="">
-                                <div class="cover">
-                                    <div class="img">
-                                        <img src="https://p1.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=300y300">
-                                    </div>
-                                    <div class="count flex-center">
-                                        <i class="arrow"></i>
-                                        <span>35亿</span>
-                                    </div>
-                                </div>
-                            </a>
-        
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="wrapper">
-                            <a href="">
-                                <div class="cover">
-                                    <div class="img">
-                                        <img src="https://p1.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=300y300">
-                                    </div>
-                                    <div class="count flex-center">
-                                        <i class="arrow"></i>
-                                        <span>35亿</span>
-                                    </div>
-                                </div>
-                            </a>
-        
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="wrapper">
-                            <a href="">
-                                <div class="cover">
-                                    <div class="img">
-                                        <img src="https://p1.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=300y300">
-                                    </div>
-                                    <div class="count flex-center">
-                                        <i class="arrow"></i>
-                                        <span>35亿</span>
-                                    </div>
-                                </div>
-                            </a>
-        
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="wrapper">
-                            <a href="">
-                                <div class="cover">
-                                    <div class="img">
-                                        <img src="https://p1.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=300y300">
-                                    </div>
-                                    <div class="count flex-center">
-                                        <i class="arrow"></i>
-                                        <span>35亿</span>
-                                    </div>
-                                </div>
-                            </a>
-        
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="wrapper">
-                            <a href="">
-                                <div class="cover">
-                                    <div class="img">
-                                        <img src="https://p1.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=300y300">
-                                    </div>
-                                    <div class="count flex-center">
-                                        <i class="arrow"></i>
-                                        <span>35亿</span>
-                                    </div>
-                                </div>
-                            </a>
-        
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="wrapper">
-                            <a href="">
-                                <div class="cover">
-                                    <div class="img">
-                                        <img src="https://p1.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=300y300">
-                                    </div>
-                                    <div class="count flex-center">
-                                        <i class="arrow"></i>
-                                        <span>35亿</span>
-                                    </div>
-                                </div>
-                            </a>
-        
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="wrapper">
-                            <a href="">
-                                <div class="cover">
-                                    <div class="img">
-                                        <img src="https://p1.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=300y300">
-                                    </div>
-                                    <div class="count flex-center">
-                                        <i class="arrow"></i>
-                                        <span>35亿</span>
-                                    </div>
-                                </div>
-                            </a>
-        
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="wrapper">
-                            <a href="">
-                                <div class="cover">
-                                    <div class="img">
-                                        <img src="https://p1.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=300y300">
-                                    </div>
-                                    <div class="count flex-center">
-                                        <i class="arrow"></i>
-                                        <span>35亿</span>
-                                    </div>
-                                </div>
-                            </a>
-        
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="wrapper">
-                            <a href="">
-                                <div class="cover">
-                                    <div class="img">
-                                        <img src="https://p1.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=300y300">
-                                    </div>
-                                    <div class="count flex-center">
-                                        <i class="arrow"></i>
-                                        <span>35亿</span>
-                                    </div>
-                                </div>
-                            </a>
-        
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="wrapper">
-                            <a href="">
-                                <div class="cover">
-                                    <div class="img">
-                                        <img src="https://p1.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=300y300">
-                                    </div>
-                                    <div class="count flex-center">
-                                        <i class="arrow"></i>
-                                        <span>35亿</span>
-                                    </div>
-                                </div>
-                            </a>
-        
-                        </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -275,6 +71,30 @@
 <script>
 export default {
     name : "Rank",
+    data(){
+        return{
+            rankList:[],
+            TopList:[]
+        }
+
+    },
+    mounted(){
+        this.getrankList();
+        // console.log(this.rankList)
+    },
+    methods:{
+        getrankList(){
+            this.axios.get('toplist/detail').then(res=>{
+                console.log(res.data.list)
+                if(res.status===200){
+                    let list = [];
+                    list = res.data.list;
+                    this.rankList = list.slice(4);
+                    this.TopList = list.slice(0,4);
+                }
+            })
+        }
+    }
 }
 </script>
 
@@ -288,6 +108,8 @@ top: 50%;left: 0%;transform: translate(0%, -50%);border-radius: 5px;}
 .rank-wrapper .module .list .item{flex: 0 0 12.5%;max-width: 12.5%;cursor: pointer;padding: 0 15px 30px;}
 .rank-wrapper .module .list .item img{width: 100%;height: 100%;}
 .rank-wrapper .module .list .item .wrapper{position: relative;}
+.rank-wrapper .module .list .item .info{margin-top: 15px;}
+.rank-wrapper .module .list .item .info h2{font-size: 14px;}
 .rank-wrapper .module .item .wrapper:hover{top:-3px; left: -1.5px; box-shadow: 0px 5px 10px 3px #ccc;}
 .rank-wrapper .module .item .wrapper .cover{position: relative;}
 .rank-wrapper .module .item .wrapper .cover .img{border-radius: 4px;overflow: hidden;width: 100%;height: 100%;}
