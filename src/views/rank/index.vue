@@ -1,16 +1,26 @@
 <template>
     <div class="fluid">
+        <Loading v-if="isLoading" />
         <!-- 主要部分 -->
-        <div class="rank-wrapper container">
+        <div v-else class="rank-wrapper container">
             <div class="module">
                 <h2 class="title">云音乐特色榜</h2>
                 <div class="list">
-                    <div class="item" v-for="item in TopList" :key="item.id">
+                    <div class="item" v-for="item in TopList" :key="item.id"
+                    @click="handleToDetail(item.id)"
+                    >
                         <div class="wrapper">
-                            <a href="">
+                            <a>
                                 <div class="cover">
                                     <div class="img">
-                                        <img :src="item.coverImgUrl">
+                                        <el-image
+                                        :src="item.coverImgUrl">
+                                            <div slot="placeholder" 
+                                            class="image-slot flex-center flex-column">
+                                                加载中<span class="dot">...</span>
+                                            </div>
+                                        </el-image>
+                                        <!-- <img :src="item.coverImgUrl"> -->
                                     </div>
                                     <div class="count flex-center">
                                         <i class="arrow"></i>
@@ -28,9 +38,11 @@
             <div class="module">
                 <h2 class="title">全球媒体榜</h2>
                 <div class="list">
-                    <div class="item" v-for="item in rankList" :key="item.id">
+                    <div class="item" v-for="item in rankList" :key="item.id"
+                    @click="handleToDetail(item.id)"
+                    >
                         <div class="wrapper">
-                            <a href="">
+                            <a>
                                 <div class="cover">
                                     <div class="img">
                                         <img :src="item.coverImgUrl">
@@ -74,7 +86,8 @@ export default {
     data(){
         return{
             rankList:[],
-            TopList:[]
+            TopList:[],
+            isLoading: true
         }
 
     },
@@ -83,16 +96,23 @@ export default {
         // console.log(this.rankList)
     },
     methods:{
+        // 获取排行列表
         getrankList(){
             this.axios.get('toplist/detail').then(res=>{
-                console.log(res.data.list)
+                // console.log(res.data.list)
                 if(res.status===200){
+                    this.isLoading = false
                     let list = [];
                     list = res.data.list;
                     this.rankList = list.slice(4);
                     this.TopList = list.slice(0,4);
                 }
             })
+        },
+        // 跳转详情页
+        handleToDetail(listId){
+            // console.log(listId)
+            this.$router.push('/playlist-detail/'+listId)
         }
     }
 }
@@ -111,8 +131,8 @@ top: 50%;left: 0%;transform: translate(0%, -50%);border-radius: 5px;}
 .rank-wrapper .module .list .item .info{margin-top: 15px;}
 .rank-wrapper .module .list .item .info h2{font-size: 14px;}
 .rank-wrapper .module .item .wrapper:hover{top:-3px; left: -1.5px; box-shadow: 0px 5px 10px 3px #ccc;}
-.rank-wrapper .module .item .wrapper .cover{position: relative;}
-.rank-wrapper .module .item .wrapper .cover .img{border-radius: 4px;overflow: hidden;width: 100%;height: 100%;}
+.rank-wrapper .module .item .wrapper .cover{position: relative;padding-top: 100%;background: #d9d9d9;}
+.rank-wrapper .module .item .wrapper .cover .img{border-radius: 4px;overflow: hidden;width: 100%;height: 100%;position: absolute;top: 0;left: 0;}
 .rank-wrapper .module .item .wrapper .cover .count{position: absolute;top: 1px;right: 16px;height: 24px;font-weight: 700;font-size: 12px;line-height: 24px;
 background: url(https://img.alicdn.com/tfs/TB1xEGRub9YBuNjy0FgXXcxcXXa-268-48.png) no-repeat 0;color: #fff;background-size: cover;padding: 9px;}
 .rank-wrapper .module .list .item .wrapper .cover .count .arrow{display: block;border-width: 4px 0 4px 6px;border-style: solid;margin-right: 5px;

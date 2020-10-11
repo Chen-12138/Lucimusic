@@ -8,7 +8,7 @@ a{color: #161e27;text-decoration: none;font-size: 14px;}
 table{border-collapse: collapse;border-spacing: 0;table-layout: fixed;}
 
 .container{max-width: 1380px;width: 100%;padding: 0 15px;margin: 0 auto;}
-.fluid{padding-top: 90px;}
+.fluid{padding-top: 90px;min-height: 660px;padding: 20px 0;}
 .shadow {background-color: #FFFFFF;box-shadow: 0px 5px 40px -1px rgba(2, 10, 18, 0.1);}
 
 .flex-row{display: flex;flex-direction: row;align-items: center;}
@@ -45,76 +45,6 @@ width: 100%;height: 35px;display: flex;align-items: center;justify-content: spac
 .load-bottom .loading .loader{width: 30px;height: 30px;background: #fa2800;margin: 3em;border-radius: 50%;position: relative;
 animation: loader 1s infinite ease-in-out;}
 .load-bottom .loading span{margin-top: -30px;font-size: 12px;}
-
-
-/* personal页面 */
-.personal-wrapper{margin-top: -20px;}
-.personal-wrapper .banner{width: 100%;height: 350px; background: url(/images/personal.jpg);background-size: cover;background-attachment: fixed;background-position: center;}
-.personal-wrapper .person-main{display: flex;align-items: flex-start;}
-.personal-wrapper .person-main .left{width: 350px;position: relative;top: -60px;margin-right: 20px;}
-.personal-wrapper .person-main .left .user-box{background: #fff;border-radius: 5px;padding-bottom: 30px;}
-.personal-wrapper .person-main .left .user-box .background{width: 100%;height: 140px;border-radius: 5px 5px 0 0;background-size: cover;}
-.personal-wrapper .person-main .left .user-box .card{margin-top: -20px;padding: 0 15px 0 30px;width: 100%;}
-.personal-wrapper .person-main .left .user-box .card .avatar{width: 64px;height: 64px;flex-shrink: 0;z-index: 2;}
-.personal-wrapper .person-main .left .user-box .card .avatar img{width: 100%;height: 100%;}
-.personal-wrapper .person-main .left .user-box .card .info{width: 100%;padding-top: 20px;margin-left: 15px;}
-.personal-wrapper .person-main .left .user-box .card .info{font-weight: 600;font-size: 16px;}
-.personal-wrapper .person-main .left .user-box .card .info .sign-btn{padding: 3px 15px;font-size: 12px;color: #fff;border-radius: 30px;}
-.personal-wrapper .person-main .left .user-box .card .info .sign-btn-active{background: #fa2800;cursor: pointer;border: 1px solid #fa2800;}
-.personal-wrapper .person-main .left .user-box .profile{padding: 0 40px;margin-top: 10px;}
-.personal-wrapper .person-main .left .user-box .profile .tag{position: relative;font-size: 13px;padding-left: 15px;display: flex;align-items: center;margin-bottom: 5px;}
-.personal-wrapper .person-main .left .user-box .profile .tag::before{content: '';width: 6px;height: 6px;border-radius: 50%;
-background: #fa2800;position: absolute;top: 50%;left: 0px;margin-top: -3px;}
-.personal-wrapper .person-main .left .user-box .follow{list-style: none;display: flex;margin: 0 30px;margin-top: 15px;padding-top: 15px;border-top: 1px solid #f9f9ff;}
-.personal-wrapper .person-main .left .user-box .follow li{width: 33%;text-align: center;font-size: 14px;color: #958ebb}
-.personal-wrapper .person-main .left .user-box .follow li span{display: block;}
-.personal-wrapper .person-main .left .user-box .foot{width: 100%;padding: 0 30px;margin-top: 30px;}
-.personal-wrapper .person-main .left .user-box .foot a{display: block;width: 50%;text-align: center;margin: 0 3% 10px 3%;padding: 10px 0;background: #ff416c;background: linear-gradient(to right, #ff4b2b, #ff416c);color: #fff;border-radius: 5px;font-size: 14px;}
-.personal-wrapper .person-main .center{width: 640px;background: #fff;margin-top: 40px;margin-right: 20px;border-radius: 5px;padding: 15px;}
-.personal-wrapper .person-main .center .card-header{border-left: 3px solid #fa2800;height: 20px;padding-left: 1rem;margin-bottom: 15px;font-weight: bold;}
-.personal-wrapper .person-main .center .card-header span{font-weight: 100;color: #666;font-size: 12px;}
-.personal-wrapper .person-main .center .card-header .tab span{font-size: 12px;cursor: pointer;}
-.personal-wrapper .person-main .center .card-header .tab span.active{color: #fa2800;}
-.personal-wrapper .person-main .center .card-header .tab .line{width: 1px;height: 13px;background: #999;display: block;margin: 0 10px;}
-/* artist-box */
-.artist-box .tool-head{display: flex;align-items: center;justify-content: flex-end;margin: 15px 0;}
-.artist-box .tool-head .item{border-radius: 50px;cursor: pointer;padding: 7px 15px;}
-.artist-box .tool-head .item i{margin-right: 5px;}
-.artist-box .tool-head .play-item{background: #fa2800;color: #fff;}
-.artist-box .artist-table{width: 100%;}
-.artist-box .artist-table thead{width: 100%;height: 50px;line-height: 50px;background: #fafafa;color: #999;}
-.artist-box .artist-table thead th{text-align: left;font-weight: 300;padding: 0 9px;}
-.artist-box .artist-table thead th.th-index{width: 10%;text-align: center;}
-.artist-box .artist-table thead th.th-name{width: 40%;}
-.artist-box .artist-table thead th.th-artist{width: 25%;}
-.artist-box .artist-table thead th.th-album{width: 15%;}
-.artist-box .artist-table thead th.th-duration{width: 15%;padding-right: 40px;}
-.artist-box .artist-table tbody tr{height: 50px;line-height: 50px;transition: background-color 0.2s linear;}
-.artist-box .artist-table tbody tr:nth-child(2n){background: #f7f7f7;}
-.artist-box .artist-table tbody tr:hover{background: #e8e9ed;}
-.artist-box .artist-table tbody tr td{padding: 0 9px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
-.artist-box .artist-table tbody tr .name-container{display: flex;align-items: center;}
-.artist-box .artist-table tbody tr .name-container .avatar{width: 35px;height: 35px;border-radius: 5px;margin-right: 10px;}
-.artist-box .artist-table tbody tr .name-container .avatar img{width: 100%;height: 100%;}
-/* right */
-.personal-wrapper .person-main .right{width: 350px;border-radius: 5px;background: #fff;padding-bottom: 30px;margin-top: 40px;}
-.personal-wrapper .person-main .right .my{padding-bottom: 5px;}
-.personal-wrapper .person-main .right .module{padding: 15px;width: 100%;border-radius: 8px;margin-bottom: 20px;}
-.personal-wrapper .person-main .right .card-header{border-left: 3px solid #fa2800;height: 20px;padding-left: 1rem;margin-bottom: 15px;font-weight: bold;}
-.personal-wrapper .person-main .right .card-header span{font-weight: 100;color: #666;font-size: 12px;}
-.personal-wrapper .person-main .right .list{display: flex;flex-wrap: wrap;}
-.personal-wrapper .person-main .right .list .item{flex: 0 0 50%;max-width: 50%;padding: 0 15px 30px;}
-.personal-wrapper .person-main .right .list .item img{width: 100%;height: 100%;}
-.personal-wrapper .person-main .right .list .item .info{margin-top: 15px;}
-.personal-wrapper .person-main .right .list .item .info h2{font-size: 14px;}
-.personal-wrapper .person-main .right .list .item .wrapper{position: relative;}
-.personal-wrapper .person-main .right .list .item .wrapper:hover{top:-3px; left: -1.5px; box-shadow: 0px 5px 10px 3px #ccc;}
-.personal-wrapper .person-main .right .list .item .wrapper .cover{position: relative;}
-.personal-wrapper .person-main .right .list .item .wrapper .cover .img{border-radius: 4px;overflow: hidden;width: 100%;height: 100%;}
-.personal-wrapper .person-main .right .list .item .wrapper .cover .count{position: absolute;top: 1px;right: 16px;height: 24px;font-weight: 700;font-size: 12px;line-height: 24px;
-background: url(https://img.alicdn.com/tfs/TB1xEGRub9YBuNjy0FgXXcxcXXa-268-48.png) no-repeat 0;color: #fff;background-size: cover;padding: 9px;}
-.personal-wrapper .person-main .right .list .item .wrapper .cover .count .arrow{display: block;border-width: 4px 0 4px 6px;border-style: solid;margin-right: 5px;
-border-color: transparent transparent transparent #fff;}
 
 /* loading动画 */
 @keyframes loader {

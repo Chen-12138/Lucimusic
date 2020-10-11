@@ -6,6 +6,8 @@ import playlistRouter from './playlist'
 import singerRouter from './singer'
 import videoRouter from './video'
 import mvRouter from './mv'
+import personalRouter from './personal'
+import playlistDetailRouter from './playlist-detail'
 
 Vue.use(VueRouter)
 
@@ -16,6 +18,8 @@ const routes = [
   singerRouter,
   videoRouter,
   mvRouter,
+  personalRouter,
+  playlistDetailRouter,
   {
     path : '/*',
     redirect : '/home'

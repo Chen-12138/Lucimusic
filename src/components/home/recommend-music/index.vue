@@ -2,10 +2,10 @@
     <div class="container recommend-music">
         <h2 class="title">推荐歌曲</h2>
         <div class="list">
-            <div class="item " v-for="item in musicList" :key="item.id">
+            <div class="item " v-for="(item,index) in musicList" :key="item.id">
                 <div class="wrapper flex-center shadow">
                     <div class="index-container">
-                        <span class="num">01</span>
+                        <span class="num">{{index | formatIndex}}</span>
                     </div>
                     <div class="avatar">
                         <div class="img">
@@ -57,13 +57,6 @@ export default {
     data(){
         return {
             musicList:[]
-        }
-    },
-    filters:{
-        formatTime(duration){
-            var minutes = parseInt((duration%(1000*60*60)) / (1000*60));
-            var seconds = parseInt((duration % (1000*60)) / 1000);
-            return (minutes < 10 ? ('0'+minutes) : minutes) + ':' + (seconds < 10 ? ('0'+seconds):seconds);
         }
     },
     computed:{

@@ -38,7 +38,7 @@ export default {
     },
     mounted(){
         this.axios.get('top/artists?limit=30').then(res=>{
-            console.log(res);
+            // console.log(res);
             if(res.status===200){
                 this.singerList = res.data.artists
             }

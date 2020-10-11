@@ -3,77 +3,20 @@
         <div class="playlist-wrapper container">
             <div class="filter shadow">
                 <div class="title flex-center" @click="openFilter">
-                    全部
+                    {{currentCat}}
                     <i class="iconfont icon-xiajiantou"></i>
                     <transition name="fade">
                         <div class="filter-box shadow" v-if="showFilter">
-                            <div class="item">
+                            <div class="item" v-for="item in typeList" :key="item.key">
                                 <h2>
-                                    <i class="iconfont icon-icon"> </i>
-                                    语种
+                                    <i class="iconfont" :class="item.icon"> </i>
+                                    {{item.value}}
                                 </h2>
                                 <ul>
-                                    <li>华语</li>
-                                    <li>欧美</li>
-                                    <li>日语</li>
-                                    <li>韩语</li>
-                                    <li>粤语</li>
-                                </ul>
-                            </div>
-                            <div class="item">
-                                <h2>
-                                    <i class="iconfont icon-fengge"> </i>
-                                    风格
-                                </h2>
-                                <ul>
-                                    <li>流行</li>
-                                    <li>摇滚</li>
-                                    <li>民谣</li>
-                                    <li>电子</li>
-                                    <li>舞曲</li>
-                                    <li>说唱</li>
-                                    <li>轻音乐</li>
-                                    <li>爵士</li>
-                                    <li>乡村</li>
-                                    <li>古典</li>
-                                    <li>民族</li>
-                                    <li>朋克</li>
-                                    <li>金属</li>
-                                    <li>古风</li>
-                                </ul>
-                            </div>
-                            <div class="item">
-                                <h2>
-                                    <i class="iconfont icon-changjing"> </i>
-                                    场景
-                                </h2>
-                                <ul>
-                                    <li>清晨</li>
-                                    <li>夜晚</li>
-                                    <li>学习</li>
-                                    <li>工作</li>
-                                    <li>午休</li>
-                                    <li>下午茶</li>
-                                    <li>驾车</li>
-                                    <li>运动</li>
-                                    <li>旅行</li>
-                                </ul>
-                            </div>
-                            <div class="item">
-                                <h2>
-                                    <i class="iconfont icon-qinggan"> </i>
-                                    情感
-                                </h2>
-                                <ul>
-                                    <li>怀旧</li>
-                                    <li>清新</li>
-                                    <li>治愈</li>
-                                    <li>放松</li>
-                                    <li>孤独</li>
-                                    <li>兴奋</li>
-                                    <li>快乐</li>
-                                    <li>安静</li>
-                                    <li>思念</li>
+                                    <li v-for="Inneritem in fiveList[item.key]" :key="Inneritem.name"
+                                    @click="chooseCat(Inneritem.name)"
+                                    :class="currentCat == Inneritem.name ? 'active' : ''"
+                                    >{{Inneritem.name}}</li>
                                 </ul>
                             </div>
                         </div>
@@ -82,565 +25,70 @@
                 <div class="hot-tag flex-row">
                     <p>热门标签：</p>
                     <ul class="flex-row">
-                        <li>华语</li>
-                        <li>流行</li>
-                        <li>摇滚</li>
-                        <li>民谣</li>
-                        <li>电子</li>
-                        <li>另类/独立</li>
-                        <li>轻音乐</li>
-                        <li>综艺</li>
-                        <li>影视原声</li>
-                        <li>ACG</li>
+                        <li v-for="item in hotList" :key="item.id"
+                        @click="chooseCat(item.name)"
+                        :class="currentCat == item.name ? 'active' : ''"
+                        >
+                        {{item.name}}
+                        </li>
                     </ul>
                 </div>
                 <div class="type flex-center">
-                    <div class="item active">
+                    <div class="item"
+                    :class="sortType == 'hot' ? 'active' : ''"
+                    @click="chooseSortType('hot')"
+                    >
                         热门
                     </div>
-                    <div class="item">
+                    <div class="item"
+                    :class="sortType == 'new' ? 'active' : ''"
+                    @click="chooseSortType('new')"
+                    >
                         最新
                     </div>
                 </div>
             </div>
 
             <div class="list">
-                <div class="item">
+                <div class="item" v-for="item in catList" :key="item.id"
+                @click="handleToDetail(item.id)"
+                >
                     <div class="wrapper">
-                        <a href="">
+                        <a>
                             <div class="cover">
                                 <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
+                                    <el-image
+                                    :src="item.coverImgUrl">
+                                        <div slot="placeholder" 
+                                        class="image-slot flex-center flex-column">
+                                            加载中<span class="dot">...</span>
+                                        </div>
+                                    </el-image>
                                 </div>
                                 <div class="count flex-center">
                                     <i class="arrow"></i>
-                                    <span>25万</span>
+                                    <span>{{item.playCount | formatPlaycount}}</span>
                                 </div>
                             </div>
                         </a>
     
                     </div>
                     <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="wrapper">
-                        <a href="">
-                            <div class="cover">
-                                <div class="img">
-                                    <img src="@/assets/images/w1.jpg" alt="">
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>25万</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
+                        <h2 class="ellipsis-two">{{item.name}}</h2>
                     </div>
                 </div>
             </div>
 
             <div class="page-wrapper">
-                
+                <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page.sync="currentPage"
+                    :page-size="limit"
+                    background
+                    layout="total, prev, pager, next"
+                    :total="pageTotal">
+                </el-pagination>
             </div>
         </div>
     </div>
@@ -652,12 +100,132 @@ export default {
     data(){
         return {
             showFilter : false,
-            
+            // 当前标签
+            currentCat: "全部",
+            // 歌单列表
+            catList : [],
+            // 分5类
+            typeList : [
+                {
+                    key : 0,
+                    value : "语种",
+                    icon: 'icon-icon'
+                },
+                {
+                    key : 1,
+                    value : "风格",
+                    icon: 'icon-fengge'
+                },
+                {
+                    key : 2,
+                    value : "场景",
+                    icon: 'icon-changjing'
+                },
+                {
+                    key : 3,
+                    value : "情感",
+                    icon: 'icon-qinggan'
+                },
+                {
+                    key : 4,
+                    value : "主题",
+                    icon: 'icon-zhuti'
+                },
+            ],
+            // 所有标签
+            allList : [],
+            // 5类标签
+            fiveList:[[],[],[],[],[]],
+            // 热门标签
+            hotList: [],
+            // 选择热门和最新
+            sortType: 'hot',
+            limit : 40,
+            offset : 0,
+            // 当前页
+            currentPage : 0,
+            // 总数量
+            pageTotal : 0
         }
     },
+    computed : {},
+    mounted(){
+        this.getcatList()
+        this.gethotList()
+        this.getList()
+    },
     methods:{
+        handleSizeChange(val){
+            // console.log(val)
+            this.limit = val
+            this.offset = this.limit * (this.currentPage - 1)
+            this.getList()
+        },
+        handleCurrentChange(val){
+            this.currentPage = val
+            // console.log(val)
+            this.offset = (val - 1) * this.limit
+            this.getList()
+        },
+        // 下拉框的打开
         openFilter(){
             this.showFilter = !this.showFilter;
+        },
+        // 获取歌单分类
+        getcatList(){
+            this.axios.get('playlist/catlist').then(res=>{
+                // console.log(res);
+                this.allList = res.data.sub;
+                // console.log(this.allList)
+                for(let i = 0 ; i < 70 ; i++){
+                    if(this.allList[i].category == 0){
+                        this.fiveList[0].push(this.allList[i])
+                    } else if(this.allList[i].category == 1){
+                        this.fiveList[1].push(this.allList[i])
+                    } else if(this.allList[i].category == 2){
+                        this.fiveList[2].push(this.allList[i])
+                    }else if(this.allList[i].category == 3){
+                        this.fiveList[3].push(this.allList[i])
+                    }else if(this.allList[i].category == 4){
+                        this.fiveList[4].push(this.allList[i])
+                    }
+                }
+                // console.log(this.fiveList)
+            })
+        },
+        // 获取热门歌单分类
+        gethotList(){
+            this.axios.get('playlist/hot').then(res=>{
+                if(res.status==200){
+                    this.hotList = res.data.tags
+                }
+            })
+        },
+        // 选择热门或者最新
+        chooseSortType(type){
+            this.sortType = type;
+            this.getList()
+        },
+        // 选择标签
+        chooseCat(cat){
+            this.currentCat = cat;
+            this.getList()
+        },
+        // 获取歌单列表
+        getList(){
+            this.axios.get('top/playlist?limit='+ this.limit +'&order=' + this.sortType + '&cat=' + this.currentCat + 
+            '&offset=' + this.offset).then(res=>{
+                // console.log(res)
+                if(res.status == 200){
+                    this.catList = res.data.playlists
+                    this.pageTotal = res.data.total
+                }
+            })
+        },
+        // 跳转详情页
+        handleToDetail(listId){
+            // console.log(listId)
+            this.$router.push('/playlist-detail/'+listId)
         }
     }
 }
@@ -684,9 +252,10 @@ export default {
 }
 /* playlist页面 */
 .playlist-wrapper .filter{width: 100%;height: 40px;margin-bottom: 20px;padding-right: 20px;display: flex;}
-.playlist-wrapper .filter .title{height: 100%;width: 90px; background: #fa2800;border-radius: 5px 0 0 5px;color: #fff;
-cursor: pointer;margin-right: 15px;position: relative;}
+.playlist-wrapper .filter .title{height: 100%;width: auto; background: #fa2800;border-radius: 5px 0 0 5px;color: #fff;
+cursor: pointer;margin-right: 15px;position: relative;padding: 0 5px 0 15px;}
 .playlist-wrapper .filter .title i{margin-left: 15px;font-size: 18px;}
+.playlist-wrapper .filter .title .filter-box::-webkit-scrollbar {display: none;}
 .playlist-wrapper .filter .title .filter-box{width: 720px;height: 400px;overflow-y: scroll;background: #fff;border-radius: 5px;
 color: #000;position: absolute;top: 50px;right: -630px;z-index: 100;padding: 15px 10px 0 16px;}
 .playlist-wrapper .filter .title .filter-box .item{margin-bottom: 20px;}
@@ -694,25 +263,31 @@ color: #000;position: absolute;top: 50px;right: -630px;z-index: 100;padding: 15p
 .playlist-wrapper .filter .title .filter-box .item h2 i{font-size: 16px;margin-right: 5px;margin-left: 0;}
 .playlist-wrapper .filter .title .filter-box .item ul{display: flex;flex-wrap: wrap;}
 .playlist-wrapper .filter .title .filter-box .item ul li:hover{background: #fa2800;color: #fff;}
+.playlist-wrapper .filter .title .filter-box .item ul li.active{background: #fa2800;color: #fff;}
 .playlist-wrapper .filter .title .filter-box .item ul li{background: #f7f7f7;border-radius: 16px;margin: 0 10px 10px 0;cursor: pointer;font-size: 12px;
 color: #161e27;padding: 8px 18px;transition: all .4s;}
 .playlist-wrapper .filter .hot-tag{flex: 1;}
 .playlist-wrapper .filter .hot-tag ul li{margin: 0 5px;padding-right: 10px;cursor: pointer;}
+.playlist-wrapper .filter .hot-tag ul li.active{color: #fa2800;}
+.playlist-wrapper .filter .hot-tag ul li:hover{color: #fa2800;}
 .playlist-wrapper .filter .type{display: flex;}
-.playlist-wrapper .filter .type .item{margin-left: 20px;background: #f7f7f7;border-radius: 3px;cursor: pointer;color: #161e27;padding: 5px 10px;}
+.playlist-wrapper .filter .type .item{margin-left: 20px;background: #f7f7f7;border-radius: 3px;cursor: pointer;color: #161e27;padding: 5px 10px;transition: all .4s;}
 .playlist-wrapper .filter .type .active{background: #fa2800;color: #fff;}
 
 .playlist-wrapper .list{display: flex;flex-wrap: wrap;margin: 0 -15px;}
-.playlist-wrapper .list .item{flex: 0 0 12.5%;padding: 0 15px 30px;box-sizing: border-box;cursor: pointer;}
+.playlist-wrapper .list .item{flex: 0 0 12.5%;max-width: 12.5%; padding: 0 15px 30px;box-sizing: border-box;cursor: pointer;}
 .playlist-wrapper .list .item img{width: 100%;height: 100%;}
 .playlist-wrapper .list .item .info{margin-top: 15px;}
 .playlist-wrapper .list .item .info h2{font-size: 14px;}
 .playlist-wrapper .list .item .wrapper{position: relative;}
 .playlist-wrapper .list .item .wrapper:hover{top:-3px; left: -1.5px; box-shadow: 0px 5px 10px 3px #ccc;}
-.playlist-wrapper .list .item .wrapper .cover{position: relative;}
-.playlist-wrapper .list .item .wrapper .cover .img{border-radius: 4px;overflow: hidden;width: 100%;height: 100%;}
+.playlist-wrapper .list .item .wrapper .cover{position: relative;padding-top: 100%;background: #d9d9d9;}
+.playlist-wrapper .list .item .wrapper .cover .img{border-radius: 4px;overflow: hidden;width: 100%;height: 100%;position: absolute;top: 0;left: 0;}
 .playlist-wrapper .list .item .wrapper .cover .count{position: absolute;top: 1px;right: 16px;height: 24px;font-weight: 700;font-size: 12px;line-height: 24px;
 background: url(https://img.alicdn.com/tfs/TB1xEGRub9YBuNjy0FgXXcxcXXa-268-48.png) no-repeat 0;color: #fff;background-size: cover;padding: 9px;}
 .playlist-wrapper .list .item .wrapper .cover .count .arrow{display: block;border-width: 4px 0 4px 6px;border-style: solid;margin-right: 5px;
 border-color: transparent transparent transparent #fff;}
+
+/* 分页器 */
+.page-wrapper{text-align: center;}
 </style>

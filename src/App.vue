@@ -15,10 +15,12 @@
 <script>
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import PlayerBar from "@/components/playerbar"
 export default {
   components:{
     Header,
-    Footer
+    Footer,
+    PlayerBar
   }
 }
 </script>
