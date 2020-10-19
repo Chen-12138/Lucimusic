@@ -66,13 +66,15 @@ export default {
         this.getmusicList();
     },
     methods : {
-        getmusicList(){
-            this.axios.get('personalized/newsong').then(res => {
+        // 获取歌曲列表
+        async getmusicList(){
+            try{
+                let res = await this.$api.getNewSongs()
                 // console.log(res)
-                if(res.status===200){
-                    this.musicList = res.data.result
-                }
-            })
+                this.musicList = res.result
+            } catch(error) {
+                this.$message.error(error)
+            }
         }
     }
 }

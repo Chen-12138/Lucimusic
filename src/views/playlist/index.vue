@@ -172,12 +172,10 @@ export default {
             this.showFilter = !this.showFilter;
         },
         // 获取歌单分类
-        getcatList(){
-            this.axios.get('playlist/catlist').then(res=>{
-                // console.log(res);
-                this.allList = res.data.sub;
-                // console.log(this.allList)
-                for(let i = 0 ; i < 70 ; i++){
+        async getcatList(){
+            let res = await this.$api.getCatList();
+            this.allList = res.sub
+            for(let i = 0 ; i < 70 ; i++){
                     if(this.allList[i].category == 0){
                         this.fiveList[0].push(this.allList[i])
                     } else if(this.allList[i].category == 1){
@@ -190,17 +188,19 @@ export default {
                         this.fiveList[4].push(this.allList[i])
                     }
                 }
-                // console.log(this.fiveList)
-            })
         },
         // 获取热门歌单分类
-        gethotList(){
-            this.axios.get('playlist/hot').then(res=>{
-                if(res.status==200){
-                    this.hotList = res.data.tags
-                }
-            })
+        async gethotList(){
+            let res = await this.$api.getHotlist();
+            this.hotList = res.tags
         },
+        // gethotList(){
+        //     this.axios.get('playlist/hot').then(res=>{
+        //         if(res.status==200){
+        //             this.hotList = res.data.tags
+        //         }
+        //     })
+        // },
         // 选择热门或者最新
         chooseSortType(type){
             this.sortType = type;
@@ -212,15 +212,21 @@ export default {
             this.getList()
         },
         // 获取歌单列表
-        getList(){
-            this.axios.get('top/playlist?limit='+ this.limit +'&order=' + this.sortType + '&cat=' + this.currentCat + 
-            '&offset=' + this.offset).then(res=>{
+        async getList(){
+            let param = {
+                order: this.sortType,
+                cat: this.currentCat,
+                offset: this.offset,
+                limit: this.limit
+            }
+            try{
+                let res = await this.$api.getPlayList(param)
                 // console.log(res)
-                if(res.status == 200){
-                    this.catList = res.data.playlists
-                    this.pageTotal = res.data.total
-                }
-            })
+                this.catList = res.playlists
+                this.pageTotal = res.total
+            } catch(error) {
+                this.$message.error(error)
+            }
         },
         // 跳转详情页
         handleToDetail(listId){

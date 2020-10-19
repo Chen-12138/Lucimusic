@@ -156,16 +156,33 @@ export default {
             }else if(type = 'order'){
                 this.order = val;
             }
+            console.log(1)
             this.getMV()
         },
         // 获取MV
-        getMV(){
-            this.axios.get('mv/all?area='+this.area+'&type='+this.type+'&order='+this.order+
-            '&offset='+this.offset+'&limit='+this.limit).then(res=>{
-                console.log(res)
-                this.mvList = res.data.data
-            })
-        }
+        async getMV(){
+            let param = {
+                area : this.area,
+                type : this.type,
+                order : this.order,
+                offset : this.offset,
+                limit : this.limit
+            }
+            try{
+                let res = await this.$api.getMV(param)
+                // console.log(res)
+                this.mvList = res.data
+            } catch (error){
+                this.$message.error(error)
+            }
+        },
+        // getMV(){
+        //     this.axios.get('mv/all?area='+this.area+'&type='+this.type+'&order='+this.order+
+        //     '&offset='+this.offset+'&limit='+this.limit).then(res=>{
+        //         console.log(res)
+        //         this.mvList = res.data.data
+        //     })
+        // }
     }
 }
 </script>

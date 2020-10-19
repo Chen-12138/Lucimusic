@@ -12,24 +12,25 @@
                         </div>
                         <div class="card flex-row">
                             <div class="avatar">
-                                <img src="http://p1.music.126.net/Ij8ErxLtHvHWex6lKM7npQ==/109951164293403998.jpg">
+                                <img :src="userInfo.avatarUrl">
                             </div>
                             <div class="info flex-between">
-                                <p class="name">Lucky_绝恋</p>
+                                <p class="name">{{userInfo.nickname}}</p>
                                 <div>
                                     <button class="sign-btn sign-btn-active">签到</button>
                                 </div>
                             </div>
                         </div>
+                        <p>{{ userDetail.signature }}</p>
                         <div class="profile">
-                            <div class="tag">等级：</div>
-                            <div class="tag">年龄：</div>
+                            <div class="tag">等级：{{userDetail.level}}</div>
+                            <div class="tag">年龄：{{userProfile.birthday | getAstro}}</div>
                             <div class="tag">地区：</div>
                         </div>
                         <ul class="follow">
-                            <li>动态<span>0</span></li>
-                            <li>关注<span>0</span></li>
-                            <li>粉丝<span>0</span></li>
+                            <li>动态<span>{{ userProfile.eventCount }}</span></li>
+                            <li>关注<span>{{ userProfile.newFollows }}</span></li>
+                            <li>粉丝<span>{{ userProfile.followeds }}</span></li>
                         </ul>
                         <div class="foot flex-center">
                             <a href="" class="router-link-active">个人设置</a>
@@ -41,13 +42,15 @@
                     <div class="card-header flex-between">
                         <p class="flex-row">
                             听歌排行
-                            <span>（累计听歌3729首）</span>
+                            <span>（累计听歌{{ userDetail.listenSongs }}首）</span>
                         </p>
 
                         <div class="tab flex-row">
-                            <span class="active">最近一周</span>
+                            <span :class="type == 1 ? 'active' : ''" @click="changeType(1)"
+                            >最近一周</span>
                             <span class="line"></span>
-                            <span>所有时间</span>
+                            <span :class="type == 0 ? 'active' : ''" @click="changeType(0)"
+                            >所有时间</span>
                         </div>
                     </div>
                     <ArtistList />
@@ -189,10 +192,77 @@
 
 <script>
 import ArtistList from '@/components/artistList'
+import { mapGetters } from 'vuex'
 export default {
-    name : "Personal",
+    name: "Personal",
+    data(){
+        return {
+            userDetail: {},
+            userProfile: {},
+            uid : -1,
+            songs: [],
+            type: 1,
+        }
+    },
     components:{
         ArtistList
+    },
+    computed: {
+        ...mapGetters(['userInfo', 'loginStatus'])
+    },
+    mounted(){
+        this.uid = this.userInfo.userId
+        this.getUserDetail();
+        this.getUserRecord();
+        console.log(this.songs)
+    },
+    methods: {
+        // 修改一周数据或者全部
+        changeType(type) {
+          this.type = type
+          this.getUserRecord()
+        },
+        // 获取用户信息
+        async getUserDetail() {
+            try {
+                let res = await this.$api.getUserDetail(this.userInfo.userId)
+                if (res.code === 200) {
+                this.userDetail = res
+                this.userProfile =  res.profile
+                // console.log(this.userDetail)
+                // console.log(this.userProfile)
+                // this._initialize()
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        // 获取用户播放记录
+        async getUserRecord() {
+            try {
+                let res = await this.$api.getUserRecord(this.uid,this.type)
+                if(res.code === 200){
+                    // console.log(res)
+                    if (res.code === 200) {
+                        this.songs = this._normalizeSongs( res.weekData )
+                    } else {
+                        this.songs = this._normalizeSongs( res.allData )
+                    }
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        // 处理获取的记录
+        _normalizeSongs(list) {
+            let ret = []
+            list.map(item => {
+                // console.log(1)
+                // console.log(item.song)
+                ret.push(item.song)
+            })
+            return ret
+        }
     }
 }
 </script>

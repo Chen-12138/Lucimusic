@@ -126,43 +126,48 @@ export default {
     },
     methods:{
         // 获取歌单详情
-        getList(){
-            this.axios.get('playlist/detail?id='+this.id).then(res=>{
-                // console.log(res)
-                if(res.status==200){
-                    this.list = res.data.playlist
-                    this.creator = this.list.creator
-                    this.songs = this.list.tracks
-                }
-            })
+        async getList(){
+            try{
+                let res = await this.$api.getPlayListDetail(this.id)
+                this.list = res.playlist
+                this.creator = this.list.creator
+                this.songs = this.list.tracks
+            }catch(error){
+                this.$message.error(error)
+            }   
         },
         // 获取歌单收藏者
-        getsubList(){
-            this.axios.get('playlist/subscribers?id='+ this.id +'&limit=28').then(res=>{
-                if(res.status==200){
-                    // console.log(res)
-                    this.subList = res.data.subscribers
-                }
-            })
+        async getsubList(){
+            let param = {
+                id : this.id,
+                limit: 28
+            }
+            try{
+                let res = await this.$api.getSubscribersPlaylist(param)
+                this.subList = res.subscribers
+            }catch(error){
+                this.$message.error(error)
+            }   
         },
         // 获取类似歌单
-        getsimiList(){
-            this.axios.get('related/playlist?id='+this.id).then(res=>{
-                // console.log(res)
-                if(res.status==200){
-                    this.simiList = res.data.playlists
-                }
-            })
+        async getsimiList(){
+            try{
+                let res = await this.$api.getSimiPlaylist(this.id)
+                console.log(res)
+                this.simiList = res.playlists
+            }catch(error){
+                this.$message.error(error)
+            }   
         },
         // 获取歌单评论
-        getcommentList(){
-            this.axios.get('comment/playlist?id='+this.id).then(res=>{
-                console.log(res);
-                if(res.status==200){
-                    this.commentList = res.data.comments
-                }
-            })
-        }
+        async getcommentList(){
+            try{
+                let res = await this.$api.getCommentPlaylist(this.id)
+                this.commentList = res.comments
+            }catch(error){
+                this.$message.error(error)
+            }   
+        },
     }
 }
 </script>

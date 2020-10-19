@@ -97,18 +97,31 @@ export default {
     },
     methods:{
         // 获取排行列表
-        getrankList(){
-            this.axios.get('toplist/detail').then(res=>{
-                // console.log(res.data.list)
-                if(res.status===200){
-                    this.isLoading = false
-                    let list = [];
-                    list = res.data.list;
-                    this.rankList = list.slice(4);
-                    this.TopList = list.slice(0,4);
-                }
-            })
+        async getrankList(){
+            try{
+                let res = await this.$api.getToplist()
+                // console.log(res)
+                this.isLoading = false
+                let list = [];
+                list = res.list
+                this.rankList = list.slice(4);
+                this.TopList = list.slice(0,4)
+            } catch(error) {
+                this.$message.error(error)
+            }
         },
+        // getrankList(){
+        //     this.axios.get('toplist/detail').then(res=>{
+        //         // console.log(res.data.list)
+        //         if(res.status===200){
+        //             this.isLoading = false
+        //             let list = [];
+        //             list = res.data.list;
+        //             this.rankList = list.slice(4);
+        //             this.TopList = list.slice(0,4);
+        //         }
+        //     })
+        // },
         // 跳转详情页
         handleToDetail(listId){
             // console.log(listId)
@@ -120,7 +133,7 @@ export default {
 
 <style scoped>
 /* rank页面 */
-/* .rank-wrapper{padding-top: 70px;} */
+/* .rank-wrapper{padding-top: 80px;} */
 .rank-wrapper .module .title::before{content: ""; width: 3px;height: 15px;background: #fa2800;position: absolute;
 top: 50%;left: 0%;transform: translate(0%, -50%);border-radius: 5px;}
 .rank-wrapper .module .title{position: relative;padding-left: 15px;margin-bottom: 20px;font-size: 16px;}

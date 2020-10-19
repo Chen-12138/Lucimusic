@@ -58,6 +58,7 @@ export default {
     name : 'RecommendSongs',
     data(){
         return{
+            limit: 24,
             songsList:[]
         }
     },
@@ -66,15 +67,24 @@ export default {
     },
     methods:{
         // 获取歌单列表
-        getsongsList(){
-            this.axios.get('personalized?limit=24').then(res => {
+        async getsongsList(){
+            try{
+                let res = await this.$api.getPersonalized(this.limit)
                 // console.log(res)
-                if(res.status===200){
-                    this.songsList = res.data.result
-                    // console.log(this.songsList)
-                }
-            })
+                this.songsList = res.result
+            } catch(error) {
+                this.$message.error(error)
+            }
         },
+        // getsongsList(){
+        //     this.axios.get('personalized?limit=24').then(res => {
+        //         // console.log(res)
+        //         if(res.status===200){
+        //             this.songsList = res.data.result
+        //             // console.log(this.songsList)
+        //         }
+        //     })
+        // },
         // 跳转详情页
         handleToDetail(listId){
             // console.log(listId)

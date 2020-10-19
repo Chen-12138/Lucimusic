@@ -179,25 +179,46 @@ export default {
             this.getsingerList();
         },
         // 获取歌手列表
-        getsingerList(){
-            this.isloading = true
-            this.loadingStatus = false
-            this.axios.get('artist/list?type='+ this.params.type +'&area='+ this.params.area +'&initial='+ 
-                            this.params.initial +'&offset='+this.params.offset).then(res=>{
-                if(res.status==200){
+        async getsingerList(){
+			try {
+                this.loadingStatus = false
+                let res = await this.$api.getSingerList(this.params)
+                if(res.code == 200){
                     this.isLoading = false
-                    this.singerList = this.singerList.concat(res.data.artists)
                     // console.log(res)
-                    if(res.data.more){
+                    this.singerList = this.singerList.concat(res.artists)
+                    if(res.more){
                         this.loadingmore = true
                         this.loadingStatus = true
                         this.params.offset += 30
-                    }else{
+                    } else {
                         this.loadingmore = false
                     }
-                }
-            })
-        },
+                }			
+			} catch (error) {
+                this.$message.error(error)
+                // console.log(error)
+			}
+		},
+        // getsingerList(){
+        //     this.isloading = true
+        //     this.loadingStatus = false
+        //     this.axios.get('artist/list?type='+ this.params.type +'&area='+ this.params.area +'&initial='+ 
+        //                     this.params.initial +'&offset='+this.params.offset).then(res=>{
+        //         if(res.status==200){
+        //             this.isLoading = false
+        //             this.singerList = this.singerList.concat(res.data.artists)
+        //             // console.log(res)
+        //             if(res.data.more){
+        //                 this.loadingmore = true
+        //                 this.loadingStatus = true
+        //                 this.params.offset += 30
+        //             }else{
+        //                 this.loadingmore = false
+        //             }
+        //         }
+        //     })
+        // },
         // 加载更多
         load(){
             if(this.loadingStatus){

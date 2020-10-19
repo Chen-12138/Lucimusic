@@ -37,12 +37,18 @@ export default {
         }
     },
     mounted(){
-        this.axios.get('top/artists?limit=30').then(res=>{
-            // console.log(res);
-            if(res.status===200){
-                this.singerList = res.data.artists
+        this.getSingerList()
+    },
+    methods:{
+        async getSingerList(){
+            try{
+                let res = await this.$api.getHotSinger()
+                // console.log(res)
+                this.singerList = res.artists
+            } catch(error) {
+                this.$message.error(error)
             }
-        })
+        }
     }
 }
 </script>

@@ -60,7 +60,7 @@ export default {
         }
     },
     mounted(){
-        console.log(this.songs)
+        // console.log(this.songs)
     }
 }
 </script>

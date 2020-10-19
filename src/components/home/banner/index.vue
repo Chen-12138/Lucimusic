@@ -47,17 +47,31 @@ export default {
 		}
 	},
 	mounted(){
+		// console.log(1)
+		// console.log(this.$api.getBanner())
 		this.getBannerInfo();
 	},
 	methods:{
 		// 获取轮播图数据
-		getBannerInfo() {
-                this.axios.get('banner').then(res => {
-                    if (res.status !== 200) this.$message.error('轮播图数据获取失败')
-					this.bannerInfo = res.data.banners
-					// console.log(this.bannerInfo)
-                })
-            },
+		async getBannerInfo(){
+			try {
+				let res = await this.$api.getBanner()
+				// console.log(res)
+				this.bannerInfo = res.banners
+			} catch (error) {
+				this.$message.error(error)
+			}
+		}
+
+
+		// 旧写法
+		// getBannerInfo() {
+        //         this.axios.get('banner').then(res => {
+        //             if (res.status == 200){
+		// 				this.bannerInfo = res.data.banners
+		// 			}
+        //         })
+        //     },
 	}
 }
 </script>
