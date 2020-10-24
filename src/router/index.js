@@ -9,6 +9,8 @@ import mvRouter from './mv'
 import personalRouter from './personal'
 import playlistDetailRouter from './playlist-detail'
 import loginRouter from './login'
+import searchRouter from './search'
+import testRouter from './test'
 
 Vue.use(VueRouter)
 
@@ -22,6 +24,8 @@ const routes = [
   personalRouter,
   playlistDetailRouter,
   loginRouter,
+  searchRouter,
+  testRouter,
   {
     path : '/*',
     redirect : '/home'

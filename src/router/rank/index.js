@@ -1,4 +1,5 @@
 export default{
-    path : '/rank',
-    component : () => import('@/views/rank')
+    path: '/rank',
+    name: 'rank',
+    component: () => import('@/views/rank')
 }

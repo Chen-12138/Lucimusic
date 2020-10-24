@@ -2,7 +2,8 @@
     <div class="container recommend-singer">
         <h2 class="title">推荐歌手</h2>
         <div class="list">
-            <div class="item" v-for="item in singerList" :key="item.id">
+            <SingerList :singerList = 'singerList' />
+            <!-- <div class="item" v-for="item in singerList" :key="item.id">
                 <div class="wrapper">
                     <div class="img">
                         <img :src="item.img1v1Url">
@@ -12,7 +13,7 @@
                         <p class="count">单曲数{{item.musicSize}}</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- <div class="item">
                 <div class="wrapper">
                     <div class="img">
@@ -29,8 +30,12 @@
 </template>
 
 <script>
+import SingerList from '@/components/singerList'
 export default {
     name : 'RecommendSinger',
+    components: {
+        SingerList
+    },
     data(){
         return {
             singerList:[]

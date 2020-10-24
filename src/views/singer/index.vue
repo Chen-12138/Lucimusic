@@ -29,11 +29,10 @@
                 </ul>
             </div>
             <div class="load-more" @scroll="scrollBottom($event)">
-                <ul class="singer-list">
+                <!-- <ul class="singer-list">
                     <li v-for="item in singerList" :key="item.id">
                         <div class="wrapper">
                             <div class="img">
-                                <!-- <img :src="item.img1v1Url"> -->
                                 <el-image
                                 :src="item.img1v1Url">
                                     <div slot="placeholder" 
@@ -43,12 +42,13 @@
                                 </el-image>
                             </div>
                         </div>
-                            <div class="info">
-                                <p class="name">{{item.name}}</p>
-                                <p class="count">单曲数{{item.musicSize}}</p>
-                            </div>
+                        <div class="info">
+                            <p class="name">{{item.name}}</p>
+                            <p class="count">单曲数{{item.musicSize}}</p>
+                        </div>
                     </li>
-                </ul>
+                </ul> -->
+                <SingerList :singerList = 'singerList' />
             </div>
             <div v-if="loadingmore" class="load-bottom">
                 <div class="loading flex-column">
@@ -61,8 +61,12 @@
 </template>
 
 <script>
+import SingerList from '@/components/singerList'
 export default {
     name : "Singer",
+    components: {
+        SingerList
+    },
     data(){
         return{
             // 语种
@@ -200,25 +204,6 @@ export default {
                 // console.log(error)
 			}
 		},
-        // getsingerList(){
-        //     this.isloading = true
-        //     this.loadingStatus = false
-        //     this.axios.get('artist/list?type='+ this.params.type +'&area='+ this.params.area +'&initial='+ 
-        //                     this.params.initial +'&offset='+this.params.offset).then(res=>{
-        //         if(res.status==200){
-        //             this.isLoading = false
-        //             this.singerList = this.singerList.concat(res.data.artists)
-        //             // console.log(res)
-        //             if(res.data.more){
-        //                 this.loadingmore = true
-        //                 this.loadingStatus = true
-        //                 this.params.offset += 30
-        //             }else{
-        //                 this.loadingmore = false
-        //             }
-        //         }
-        //     })
-        // },
         // 加载更多
         load(){
             if(this.loadingStatus){

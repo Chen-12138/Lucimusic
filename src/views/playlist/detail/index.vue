@@ -55,7 +55,7 @@
                             <span>相关推荐</span>
                         </div>
                         <ul>
-                            <li v-for="item in simiList" :key="item.id">
+                            <li v-for="item in simiList" :key="item.id" @click="handleToDetail(item.id)">
                                 <div class="avatar">
                                     <img :src="item.coverImgUrl">
                                 </div>
@@ -117,8 +117,13 @@ export default {
             commentList : []
         }
     },
+    watch: {
+        $route(){
+            location.reload()
+        }
+    },
     mounted(){
-        // console.log(this.id)
+        // console.log(this.$route.param)
         this.getList()
         this.getsubList()
         this.getsimiList()
@@ -168,6 +173,11 @@ export default {
                 this.$message.error(error)
             }   
         },
+        // 跳转详情页
+        handleToDetail(listId){
+            // console.log(listId)
+            this.$router.push('/playlist-detail/'+listId)
+        }
     }
 }
 </script>

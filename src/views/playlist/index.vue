@@ -49,35 +49,7 @@
                 </div>
             </div>
 
-            <div class="list">
-                <div class="item" v-for="item in catList" :key="item.id"
-                @click="handleToDetail(item.id)"
-                >
-                    <div class="wrapper">
-                        <a>
-                            <div class="cover">
-                                <div class="img">
-                                    <el-image
-                                    :src="item.coverImgUrl">
-                                        <div slot="placeholder" 
-                                        class="image-slot flex-center flex-column">
-                                            加载中<span class="dot">...</span>
-                                        </div>
-                                    </el-image>
-                                </div>
-                                <div class="count flex-center">
-                                    <i class="arrow"></i>
-                                    <span>{{item.playCount | formatPlaycount}}</span>
-                                </div>
-                            </div>
-                        </a>
-    
-                    </div>
-                    <div class="info">
-                        <h2 class="ellipsis-two">{{item.name}}</h2>
-                    </div>
-                </div>
-            </div>
+            <playList :playList = "playList"/>
 
             <div class="page-wrapper">
                 <el-pagination
@@ -95,15 +67,19 @@
 </template>
 
 <script>
+import playList from '@/components/playList'
 export default {
     name : "Playlist",
+    components: {
+        playList
+    },
     data(){
         return {
             showFilter : false,
             // 当前标签
             currentCat: "全部",
             // 歌单列表
-            catList : [],
+            playList : [],
             // 分5类
             typeList : [
                 {
@@ -150,7 +126,7 @@ export default {
     },
     computed : {},
     mounted(){
-        this.getcatList()
+        this.getplayList()
         this.gethotList()
         this.getList()
     },
@@ -172,7 +148,7 @@ export default {
             this.showFilter = !this.showFilter;
         },
         // 获取歌单分类
-        async getcatList(){
+        async getplayList(){
             let res = await this.$api.getCatList();
             this.allList = res.sub
             for(let i = 0 ; i < 70 ; i++){
@@ -194,13 +170,6 @@ export default {
             let res = await this.$api.getHotlist();
             this.hotList = res.tags
         },
-        // gethotList(){
-        //     this.axios.get('playlist/hot').then(res=>{
-        //         if(res.status==200){
-        //             this.hotList = res.data.tags
-        //         }
-        //     })
-        // },
         // 选择热门或者最新
         chooseSortType(type){
             this.sortType = type;
@@ -222,17 +191,12 @@ export default {
             try{
                 let res = await this.$api.getPlayList(param)
                 // console.log(res)
-                this.catList = res.playlists
+                this.playList = res.playlists
                 this.pageTotal = res.total
             } catch(error) {
                 this.$message.error(error)
             }
         },
-        // 跳转详情页
-        handleToDetail(listId){
-            // console.log(listId)
-            this.$router.push('/playlist-detail/'+listId)
-        }
     }
 }
 </script>
@@ -279,20 +243,6 @@ color: #161e27;padding: 8px 18px;transition: all .4s;}
 .playlist-wrapper .filter .type{display: flex;}
 .playlist-wrapper .filter .type .item{margin-left: 20px;background: #f7f7f7;border-radius: 3px;cursor: pointer;color: #161e27;padding: 5px 10px;transition: all .4s;}
 .playlist-wrapper .filter .type .active{background: #fa2800;color: #fff;}
-
-.playlist-wrapper .list{display: flex;flex-wrap: wrap;margin: 0 -15px;}
-.playlist-wrapper .list .item{flex: 0 0 12.5%;max-width: 12.5%; padding: 0 15px 30px;box-sizing: border-box;cursor: pointer;}
-.playlist-wrapper .list .item img{width: 100%;height: 100%;}
-.playlist-wrapper .list .item .info{margin-top: 15px;}
-.playlist-wrapper .list .item .info h2{font-size: 14px;}
-.playlist-wrapper .list .item .wrapper{position: relative;}
-.playlist-wrapper .list .item .wrapper:hover{top:-3px; left: -1.5px; box-shadow: 0px 5px 10px 3px #ccc;}
-.playlist-wrapper .list .item .wrapper .cover{position: relative;padding-top: 100%;background: #d9d9d9;}
-.playlist-wrapper .list .item .wrapper .cover .img{border-radius: 4px;overflow: hidden;width: 100%;height: 100%;position: absolute;top: 0;left: 0;}
-.playlist-wrapper .list .item .wrapper .cover .count{position: absolute;top: 1px;right: 16px;height: 24px;font-weight: 700;font-size: 12px;line-height: 24px;
-background: url(https://img.alicdn.com/tfs/TB1xEGRub9YBuNjy0FgXXcxcXXa-268-48.png) no-repeat 0;color: #fff;background-size: cover;padding: 9px;}
-.playlist-wrapper .list .item .wrapper .cover .count .arrow{display: block;border-width: 4px 0 4px 6px;border-style: solid;margin-right: 5px;
-border-color: transparent transparent transparent #fff;}
 
 /* 分页器 */
 .page-wrapper{text-align: center;}

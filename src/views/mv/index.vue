@@ -22,38 +22,7 @@
                 </ul>
             </div>
             <div class="load-more">
-                <div class="mv-box">
-                    <ul class="mv-list">
-                        <li v-for="item in mvList" :key="item.id">
-                            <div class="wrapper">
-                                <a href="">
-                                    <div class="cover">
-                                        <div class="img">
-                                            <img :src="item.cover">
-                                        </div>
-                                        <div class="count flex-center">
-                                            <i class="arrow"></i>
-                                            <span>{{item.playCount | formatPlaycount}}</span>
-                                        </div>
-                                        <div class="action">
-                                            <button class="play">
-                                                <i class="iconfont icon-icon_play"></i>
-                                            </button>
-                                        </div>
-                                        <div class="foot">
-                                            <p>{{item.artistName}}</p>
-                                            <p>{{item.duration | formatTime}}</p>
-                                        </div>
-                                    </div>
-                                </a>
-            
-                            </div>
-                            <div class="info">
-                                <h2 class="ellipsis">{{item.name}}</h2>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                <VideoList :videoList = "mvList"/>
             </div>
             <div class="load-bottom">
                 <div class="loading flex-column">
@@ -66,8 +35,12 @@
 </template>
 
 <script>
+import VideoList from '@/components/videoList'
 export default {
     name : "MV",
+    components: {
+        VideoList
+    },
     data(){
         return {
             // 地区

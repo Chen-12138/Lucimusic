@@ -1,4 +1,5 @@
 export default{
-    path : '/singer',
-    component : () => import('@/views/singer')
+    path: '/singer',
+    name: 'singer',
+    component: () => import('@/views/singer')
 }

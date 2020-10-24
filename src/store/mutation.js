@@ -1,4 +1,3 @@
-import { type } from 'jquery'
 import * as types from './mutation-type'
 
 const mutations = {
@@ -15,6 +14,11 @@ const mutations = {
     // 获取用户信息
     [types.SET_USERINFO](state, userInfo) {
         state.userInfo = userInfo
+    },
+
+    // 搜索历史
+    [types.SET_SEARCH_HISTORY](state, history) {
+        state.searchHistory = history
     }
 }
 

@@ -1,7 +1,7 @@
 <template>
         <div class="container recommond-songs">
         <h2 class="title">推荐歌单</h2>
-        <div class="list">
+        <!-- <div class="list">
             <div class="item" v-for="item in songsList" :key="item.id"
             @click="handleToDetail(item.id)"
             >
@@ -16,7 +16,6 @@
                                                 加载中<span class="dot">...</span>
                                             </div>
                                 </el-image>
-                                <!-- <img :src="item.picUrl" alt=""> -->
                             </div>
                             <div class="count flex-center">
                                 <i class="arrow"></i>
@@ -30,32 +29,18 @@
                     <h2 class="ellipsis-two">{{item.name}}</h2>
                 </div>
             </div>
-            <!-- <div class="item">
-                <div class="wrapper">
-                    <a href="">
-                        <div class="cover">
-                            <div class="img">
-                                <img src="@/assets/images/w1.jpg" alt="">
-                            </div>
-                            <div class="count flex-center">
-                                <i class="arrow"></i>
-                                <span>25万</span>
-                            </div>
-                        </div>
-                    </a>
-
-                </div>
-                <div class="info">
-                    <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                </div>
-            </div> -->
-        </div>
+        </div> -->
+        <playList :playList = "songsList" />
     </div>
 </template>
 
 <script>
+import playList from '@/components/playList'
 export default {
     name : 'RecommendSongs',
+    components: {
+        playList
+    },
     data(){
         return{
             limit: 24,

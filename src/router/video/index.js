@@ -1,4 +1,5 @@
 export default{
-    path : '/video',
-    component : () => import('@/views/video')
+    path: '/video',
+    name: 'video',
+    component: () => import('@/views/video')
 }

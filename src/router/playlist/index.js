@@ -1,4 +1,5 @@
 export default{
-    path : '/playlist',
-    component : () => import('@/views/playlist')
+    path: '/playlist',
+    name: 'playlist',
+    component: () => import('@/views/playlist')
 }

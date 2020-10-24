@@ -24,4 +24,4 @@ export const getUserRecord = (uid, type) =>
  * @method 获取用户歌单
  * @params uid 用户 id
  */
-export const getUserArtist = uid => get(`/user/playlist?uid=${uid}`, {})
+export const getUserPlaylist = uid => get(`/user/playlist?uid=${uid}`, {})

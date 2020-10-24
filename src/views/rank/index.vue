@@ -5,84 +5,23 @@
         <div v-else class="rank-wrapper container">
             <div class="module">
                 <h2 class="title">云音乐特色榜</h2>
-                <div class="list">
-                    <div class="item" v-for="item in TopList" :key="item.id"
-                    @click="handleToDetail(item.id)"
-                    >
-                        <div class="wrapper">
-                            <a>
-                                <div class="cover">
-                                    <div class="img">
-                                        <el-image
-                                        :src="item.coverImgUrl">
-                                            <div slot="placeholder" 
-                                            class="image-slot flex-center flex-column">
-                                                加载中<span class="dot">...</span>
-                                            </div>
-                                        </el-image>
-                                        <!-- <img :src="item.coverImgUrl"> -->
-                                    </div>
-                                    <div class="count flex-center">
-                                        <i class="arrow"></i>
-                                        <span>{{item.playCount | formatPlaycount}}</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="info">
-                            <h2 class="ellipsis-two">{{item.name}}</h2>
-                        </div>
-                    </div>
-                </div>
+                <playList :playList = "TopList" />
             </div>
             <div class="module">
                 <h2 class="title">全球媒体榜</h2>
-                <div class="list">
-                    <div class="item" v-for="item in rankList" :key="item.id"
-                    @click="handleToDetail(item.id)"
-                    >
-                        <div class="wrapper">
-                            <a>
-                                <div class="cover">
-                                    <div class="img">
-                                        <img :src="item.coverImgUrl">
-                                    </div>
-                                    <div class="count flex-center">
-                                        <i class="arrow"></i>
-                                        <span>{{item.playCount | formatPlaycount}}</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="info">
-                            <h2 class="ellipsis-two">{{item.name}}</h2>
-                        </div>
-                    </div>
-                    <!-- <div class="item">
-                        <div class="wrapper">
-                            <a href="">
-                                <div class="cover">
-                                    <div class="img">
-                                        <img src="https://p1.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=300y300">
-                                    </div>
-                                    <div class="count flex-center">
-                                        <i class="arrow"></i>
-                                        <span>35亿</span>
-                                    </div>
-                                </div>
-                            </a>
-        
-                        </div>
-                    </div> -->
-                </div>
+                <playList :playList = "rankList" />
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import playList from '@/components/playList'
 export default {
     name : "Rank",
+    components: {
+        playList
+    },
     data(){
         return{
             rankList:[],
@@ -110,18 +49,6 @@ export default {
                 this.$message.error(error)
             }
         },
-        // getrankList(){
-        //     this.axios.get('toplist/detail').then(res=>{
-        //         // console.log(res.data.list)
-        //         if(res.status===200){
-        //             this.isLoading = false
-        //             let list = [];
-        //             list = res.data.list;
-        //             this.rankList = list.slice(4);
-        //             this.TopList = list.slice(0,4);
-        //         }
-        //     })
-        // },
         // 跳转详情页
         handleToDetail(listId){
             // console.log(listId)

@@ -16,7 +16,8 @@ import axios from 'axios'
 Vue.prototype.axios = axios;
 
 // 引入element-ui组件
-import { 
+import {
+  Avatar,
   Pagination,
   Image,
   Form,
@@ -24,13 +25,20 @@ import {
   Input,
   Button,
   Message,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
  } from 'element-ui';
+Vue.use(Avatar);
 Vue.use(Pagination);
 Vue.use(Image);
 Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Input);
 Vue.use(Button);
+Vue.use(Dropdown);
+Vue.use(DropdownMenu);
+Vue.use(DropdownItem);
 Vue.prototype.$message = Message;
 
 // axios导入(统一管理接口)

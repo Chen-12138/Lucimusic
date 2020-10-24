@@ -53,7 +53,7 @@
                             >所有时间</span>
                         </div>
                     </div>
-                    <ArtistList />
+                    <ArtistList :songs= "songs" />
                 </div>
                 <div class="right">
                     <div class="my module shadow">
@@ -61,61 +61,23 @@
                             我创建的歌单
                         </div>
                         <div class="list">
-                            <div class="item">
+                            <div class="item" v-for="item in myList" :key="item.id">
                                 <div class="wrapper">
                                     <a href="">
                                         <div class="cover">
                                             <div class="img">
-                                                <img src="@/assets/images/w1.jpg" alt="">
+                                                <img :src="item.coverImgUrl" alt="">
                                             </div>
                                             <div class="count flex-center">
                                                 <i class="arrow"></i>
-                                                <span>25万</span>
+                                                <span>{{item.playCount | formatPlaycount}}</span>
                                             </div>
                                         </div>
                                     </a>
                 
                                 </div>
                                 <div class="info">
-                                    <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="wrapper">
-                                    <a href="">
-                                        <div class="cover">
-                                            <div class="img">
-                                                <img src="@/assets/images/w1.jpg" alt="">
-                                            </div>
-                                            <div class="count flex-center">
-                                                <i class="arrow"></i>
-                                                <span>25万</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                
-                                </div>
-                                <div class="info">
-                                    <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="wrapper">
-                                    <a href="">
-                                        <div class="cover">
-                                            <div class="img">
-                                                <img src="@/assets/images/w1.jpg" alt="">
-                                            </div>
-                                            <div class="count flex-center">
-                                                <i class="arrow"></i>
-                                                <span>25万</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                
-                                </div>
-                                <div class="info">
-                                    <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
+                                    <h2 class="ellipsis-two">{{item.name}}</h2>
                                 </div>
                             </div>
                         </div>
@@ -125,61 +87,23 @@
                             我收藏的歌单
                         </div>
                         <div class="list">
-                            <div class="item">
+                            <div class="item" v-for="item in collectList" :key="item.id">
                                 <div class="wrapper">
                                     <a href="">
                                         <div class="cover">
                                             <div class="img">
-                                                <img src="@/assets/images/w1.jpg" alt="">
+                                                <img :src="item.coverImgUrl" alt="">
                                             </div>
                                             <div class="count flex-center">
                                                 <i class="arrow"></i>
-                                                <span>25万</span>
+                                                <span>{{item.playCount | formatPlaycount}}</span>
                                             </div>
                                         </div>
                                     </a>
                 
                                 </div>
                                 <div class="info">
-                                    <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="wrapper">
-                                    <a href="">
-                                        <div class="cover">
-                                            <div class="img">
-                                                <img src="@/assets/images/w1.jpg" alt="">
-                                            </div>
-                                            <div class="count flex-center">
-                                                <i class="arrow"></i>
-                                                <span>25万</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                
-                                </div>
-                                <div class="info">
-                                    <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="wrapper">
-                                    <a href="">
-                                        <div class="cover">
-                                            <div class="img">
-                                                <img src="@/assets/images/w1.jpg" alt="">
-                                            </div>
-                                            <div class="count flex-center">
-                                                <i class="arrow"></i>
-                                                <span>25万</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                
-                                </div>
-                                <div class="info">
-                                    <h2 class="ellipsis-two">放弃很可惜 但有些事坚持本就没意义</h2>
+                                    <h2 class="ellipsis-two">{{item.name}}</h2>
                                 </div>
                             </div>
                         </div>
@@ -202,6 +126,8 @@ export default {
             uid : -1,
             songs: [],
             type: 1,
+            myList: [],
+            collectList: []
         }
     },
     components:{
@@ -214,13 +140,14 @@ export default {
         this.uid = this.userInfo.userId
         this.getUserDetail();
         this.getUserRecord();
-        console.log(this.songs)
+        this.getUserPlaylist();
     },
     methods: {
         // 修改一周数据或者全部
         changeType(type) {
           this.type = type
           this.getUserRecord()
+          console.log(this.songs)
         },
         // 获取用户信息
         async getUserDetail() {
@@ -243,17 +170,19 @@ export default {
                 let res = await this.$api.getUserRecord(this.uid,this.type)
                 if(res.code === 200){
                     // console.log(res)
-                    if (res.code === 200) {
-                        this.songs = this._normalizeSongs( res.weekData )
+                    if (this.type == 1) {
+                        this.songs = this._normalizeSongs(res.weekData)
+                        // console.log(this.songs)
                     } else {
-                        this.songs = this._normalizeSongs( res.allData )
+                        this.songs = this._normalizeSongs(res.allData)
+                        // console.log(this.songs)
                     }
                 }
             } catch (error) {
                 console.log(error)
             }
         },
-        // 处理获取的记录
+        // 处理获取的歌曲记录
         _normalizeSongs(list) {
             let ret = []
             list.map(item => {
@@ -261,7 +190,29 @@ export default {
                 // console.log(item.song)
                 ret.push(item.song)
             })
+            // console.log(ret)
             return ret
+        },
+        // 获取用户歌单
+        async getUserPlaylist() {
+            try {
+                let res = await this.$api.getUserPlaylist(this.uid);
+                // console.log(res)
+                let list = res.playlist
+                let myList = []
+                let collectList = []
+                list.map(item => {
+                    if (item.userId === this.uid) {
+                        myList.push(item)
+                    } else {
+                        collectList.push(item)
+                    }
+                })
+                this.myList = myList
+                this.collectList = collectList
+            } catch(error) {
+                console.log(error)
+            }
         }
     }
 }

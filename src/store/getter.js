@@ -9,3 +9,8 @@ export const loginStatus = state => {
 export const userInfo = state => {
     return state.userInfo || JSON.parse(window.sessionStorage.getItem('userInfo'))
 }
+
+// 搜索历史
+export const searchHistory = state => {
+    return state.searchHistory
+}

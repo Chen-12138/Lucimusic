@@ -1,4 +1,5 @@
 export default{
-    path : '/mv',
-    component : () => import('@/views/mv')
+    path: '/mv',
+    name: 'mv',
+    component: () => import('@/views/mv')
 }
