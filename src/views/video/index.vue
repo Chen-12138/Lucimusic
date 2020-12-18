@@ -108,7 +108,19 @@ export default {
         getHotTag(){
             this.axios.get('video/category/list').then(res=>{
                 console.log(res)
+                console.log(!res)
+                if(!res){
+                    this.$message.error("该接口有问题")
+                }
             })
+        },
+        // 获取视频
+        async getMv(){
+            try{
+                let res = await this.$api.getMV()
+            }catch(error){
+                this.$message.error(error)
+            }
         },
         choosetype(type){
             this.currentTag = type

@@ -1,6 +1,6 @@
 export default{
-    path : '/playlist-detail/:id',
-    component : () => import('@/views/playlist/detail'),
-    props : true
-
+    path: '/playlist-detail/:id',
+    name: "playlist-detail",
+    component: () => import('@/views/playlist/detail'),
+    props: true
 }

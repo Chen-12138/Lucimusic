@@ -5,9 +5,13 @@
             <div class="wrapper">
                 <a href="">
                     <div class="cover">
-                        <div class="img">
-                            <img :src="item.cover">
-                        </div>
+                        <el-image
+                        :src="item.cover">
+                            <div slot="placeholder" 
+                            class="image-slot flex-center flex-column">
+                                加载中<span class="dot">...</span>
+                            </div>
+                        </el-image>
                         <div class="count flex-center">
                             <i class="arrow"></i>
                             <span>{{item.playCount | formatPlaycount}}</span>
@@ -51,7 +55,7 @@ export default {
 .mv-box .mv-list li .info h2{font-size: 14px;font-weight: 500;}
 .mv-box .mv-list li .wrapper{position: relative;}
 /* .mv-box .mv-list li .wrapper:hover{top:-3px; left: -1.5px; box-shadow: 0px 5px 10px 3px #ccc;} */
-.mv-box .mv-list li .wrapper .cover{position: relative;}
+.mv-box .mv-list li .wrapper .cover{position: relative;width: 248px;height: 140px;background: #d9d9d9;}
 .mv-box .mv-list li .wrapper .cover:hover .action{display: flex;}
 .mv-box .mv-list li .wrapper .cover .img{border-radius: 4px;overflow: hidden;width: 100%;height: 100%;}
 .mv-box .mv-list li .wrapper .cover .count{position: absolute;top: 1px;right: 16px;height: 24px;font-weight: 700;font-size: 12px;line-height: 24px;

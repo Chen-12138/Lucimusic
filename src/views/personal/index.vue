@@ -60,8 +60,10 @@
                         <div class="card-header flex-row">
                             我创建的歌单
                         </div>
-                        <div class="list">
-                            <div class="item" v-for="item in myList" :key="item.id">
+                        <!-- <div class="list">
+                            <div class="item" v-for="item in myList" :key="item.id"
+                            @click="handleToDetail(item.id)"
+                            >
                                 <div class="wrapper">
                                     <a href="">
                                         <div class="cover">
@@ -80,14 +82,17 @@
                                     <h2 class="ellipsis-two">{{item.name}}</h2>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+                        <PlayList :playList = 'myList' :num = 2 />
                     </div>
                     <div class="my collect module shadow">
                         <div class="card-header flex-row">
                             我收藏的歌单
                         </div>
-                        <div class="list">
-                            <div class="item" v-for="item in collectList" :key="item.id">
+                        <!-- <div class="list">
+                            <div class="item" v-for="item in collectList" :key="item.id"
+                            @click="handleToDetail(item.id)"
+                            >
                                 <div class="wrapper">
                                     <a href="">
                                         <div class="cover">
@@ -106,7 +111,8 @@
                                     <h2 class="ellipsis-two">{{item.name}}</h2>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+                        <PlayList :playList = 'collectList' :num = 2 />
                     </div>
                 </div>
             </div>
@@ -116,6 +122,7 @@
 
 <script>
 import ArtistList from '@/components/artistList'
+import PlayList from '@/components/playList'
 import { mapGetters } from 'vuex'
 export default {
     name: "Personal",
@@ -131,7 +138,8 @@ export default {
         }
     },
     components:{
-        ArtistList
+        ArtistList,
+        PlayList
     },
     computed: {
         ...mapGetters(['userInfo', 'loginStatus'])
@@ -167,6 +175,7 @@ export default {
         // 获取用户播放记录
         async getUserRecord() {
             try {
+                // console.log(this.uid)
                 let res = await this.$api.getUserRecord(this.uid,this.type)
                 if(res.code === 200){
                     // console.log(res)
@@ -213,7 +222,7 @@ export default {
             } catch(error) {
                 console.log(error)
             }
-        }
+        },
     }
 }
 </script>
@@ -254,7 +263,7 @@ background: #fa2800;position: absolute;top: 50%;left: 0px;margin-top: -3px;}
 .personal-wrapper .person-main .right .module{padding: 15px;width: 100%;border-radius: 8px;margin-bottom: 20px;}
 .personal-wrapper .person-main .right .card-header{border-left: 3px solid #fa2800;height: 20px;padding-left: 1rem;margin-bottom: 15px;font-weight: bold;}
 .personal-wrapper .person-main .right .card-header span{font-weight: 100;color: #666;font-size: 12px;}
-.personal-wrapper .person-main .right .list{display: flex;flex-wrap: wrap;}
+/* .personal-wrapper .person-main .right .list{display: flex;flex-wrap: wrap;}
 .personal-wrapper .person-main .right .list .item{flex: 0 0 50%;max-width: 50%;padding: 0 15px 30px;}
 .personal-wrapper .person-main .right .list .item img{width: 100%;height: 100%;}
 .personal-wrapper .person-main .right .list .item .info{margin-top: 15px;}
@@ -266,5 +275,5 @@ background: #fa2800;position: absolute;top: 50%;left: 0px;margin-top: -3px;}
 .personal-wrapper .person-main .right .list .item .wrapper .cover .count{position: absolute;top: 1px;right: 16px;height: 24px;font-weight: 700;font-size: 12px;line-height: 24px;
 background: url(https://img.alicdn.com/tfs/TB1xEGRub9YBuNjy0FgXXcxcXXa-268-48.png) no-repeat 0;color: #fff;background-size: cover;padding: 9px;}
 .personal-wrapper .person-main .right .list .item .wrapper .cover .count .arrow{display: block;border-width: 4px 0 4px 6px;border-style: solid;margin-right: 5px;
-border-color: transparent transparent transparent #fff;}
+border-color: transparent transparent transparent #fff;} */
 </style>

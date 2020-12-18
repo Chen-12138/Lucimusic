@@ -1,6 +1,7 @@
 <template>
 <div class="list">
-    <div class="item" v-for="item in playList" :key="item.id"
+    <div class="item" :class="numClass"
+    v-for="item in playList" :key="item.id"
     @click="handleToDetail(item.id)"
     >
         <div class="wrapper">
@@ -33,8 +34,17 @@
 <script>
 export default {
     props:{
-        playList : {
-            type : Array
+        playList: {
+            type: Array
+        },
+        num: {
+            type: Number,
+            default: 8
+        }
+    },
+    computed: {
+        numClass() {
+            return this.num == 2 ? 'two' : 'eight'
         }
     },
     methods: {
@@ -50,6 +60,7 @@ export default {
 <style>
 .list{display: flex;flex-wrap: wrap;margin: 0 -15px;}
 .list .item{flex: 0 0 12.5%;max-width: 12.5%; padding: 0 15px 30px;box-sizing: border-box;cursor: pointer;}
+.list .item.two{flex: 0 0 50%;max-width: 50%;}
 .list .item img{width: 100%;height: 100%;}
 .list .item .info{margin-top: 15px;}
 .list .item .info h2{font-size: 14px;}

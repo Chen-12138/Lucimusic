@@ -10,7 +10,11 @@
         </div>
         <div class="player-btn">
             <i class="iconfont icon-shangyishou"></i>
-            <i class="iconfont icon-bofang1"></i>
+            <i 
+                class="iconfont icon-bofang1"
+                :class="playIcon"
+                @click="togglePlaying"
+            ></i>
             <i class="iconfont icon-xiayishou"></i>
         </div>
         <div class="progress-wrap">
@@ -43,13 +47,58 @@
 </template>
 
 <script>
-export default {
+import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { playMode } from '@/utils/playConfig'
 
+export default {
+    data(){
+        return{
+            songReady:false,
+            currentTime:0,
+            currentLyric:null,
+            currentLyricNum:0,
+            showLyric:false,
+            showPlaylist:false,
+            id:'',
+            playingLyric:'',
+            isPureMusic: false,
+            pureMusicLyric:'',
+            isMuted:false,
+            volume:0.5,
+            volumeNum:50
+        }
+    },
+    computed:{
+        // 播放暂停按钮
+        playIcon() {
+            return this.playing ? 'icon-zanting1' : 'icon-bofang1'
+        }
+    },
+    mounted(){
+        console.log(1)
+    },
+    methods:{
+        togglePlaying() {
+            console.log(1)
+            if(!this.songReady) {
+                return
+            }
+            this.setPlayingState(!this.playing)
+            console.log(1)
+            if(this.currentLyric) {
+                this.currentLyric.togglePlaying();
+            }
+        },
+        ...mapMutations({
+            setPlayingState: 'SET_PLAYING_STATE'
+        })
+    }
 }
 </script>
 
 <style>
 /* player-bar */
+i{display: block;}
 .player-bar{width: 100%;height: 72px;background: #fff;position: fixed;bottom: 0;right: 0;left: 0;z-index: 8000;padding: 0 10px 0 20px;justify-content: space-between;}
 .player-bar .avatar{width: 60px;height: 60px;border-radius: 5px;margin-right: 15px;}
 .player-bar .avatar img{width: 60px;height: 60px;border-radius: 5px;}

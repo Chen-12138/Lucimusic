@@ -196,7 +196,7 @@ export default {
 	margin-bottom: 0;
 }
 
-@media screen and (max-width: 668px) {
+/* @media screen and (max-width: 668px) {
 	
 	.swiper-pagination {
 		position: relative;
@@ -219,7 +219,7 @@ export default {
 		border: 3px solid #00a0e9;
 		margin-bottom: 0;
 	}
-}
+} */
 
 .button {
 	width: 1000px;

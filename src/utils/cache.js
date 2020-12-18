@@ -3,6 +3,9 @@ import storage from 'good-storage'
 const SEARCH_KEY = '__search__'
 const SEARCH_MAX = 15
 
+const HISTORY_KEY = '__history__'
+const HISTORY_MAX_LENGTH = 50
+
 // 插入
 function insertArray(arr, val, compare, maxLen) {
   const index = arr.findIndex(compare)
@@ -55,4 +58,30 @@ export function deleteSearch(query) {
 export function clearSearch() {
     storage.remove(SEARCH_KEY)
     return []
+}
+
+// 添加最近播放列表
+export function saveHistory(song) {
+  let songs = storage.get(HISTORY_KEY, [])
+  insertArray(songs. song, (item) => {
+    return song.id == item.id
+  }, HISTORY_MAX_LENGTH)
+  storage.set(HISTORY_KEY, songs)
+  return songs
+}
+
+// 移除最近播放列表
+export function deleteHistory(song) {
+  let songs = storage.get(HISTORY_KEY, [])
+  deleteFromArray(songs, (item) => {
+    return song.id === item.id
+  })
+  storage.set(HISTORY_KEY, songs)
+  return songs
+}
+
+// 清空最近播放列表
+export function clearHistory() {
+  storage.remove(HISTORY_KEY)
+  return []
 }

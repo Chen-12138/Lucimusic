@@ -7,7 +7,7 @@
                 <router-link tag="li" to="/rank">排行榜</router-link>
                 <router-link tag="li" to="/playlist">歌单</router-link>
                 <router-link tag="li" to="/singer">歌手</router-link>
-                <router-link tag="li" to="/video">视频</router-link>
+                <!-- <router-link tag="li" to="/video">视频</router-link> -->
                 <router-link tag="li" to="/mv">MV</router-link>
             </ul>
             <div class="search" @click="openSearchWrap">

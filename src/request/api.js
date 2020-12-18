@@ -152,3 +152,12 @@ export const getSubscribersPlaylist = params =>
    */
 export const getMV = params =>
   get(`/mv/all`,{params})
+
+/** 
+ * @method 获取视频
+ * @param id: 视频标签分类id
+ * @param offset: 偏移数量
+*/
+export const getVideo = id =>{
+  get(`/video/group?id=${id}`,{})
+}

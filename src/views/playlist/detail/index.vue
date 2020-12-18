@@ -97,6 +97,7 @@
 <script>
 import ArtistList from '@/components/artistList'
 export default {
+    name: 'playlist-detail',
     props: ['id'],
     components:{
         ArtistList
@@ -123,7 +124,8 @@ export default {
         }
     },
     mounted(){
-        // console.log(this.$route.param)
+        console.log(this.id)
+        // console.log(this.$route.query)
         this.getList()
         this.getsubList()
         this.getsimiList()
@@ -158,7 +160,7 @@ export default {
         async getsimiList(){
             try{
                 let res = await this.$api.getSimiPlaylist(this.id)
-                console.log(res)
+                // console.log(res)
                 this.simiList = res.playlists
             }catch(error){
                 this.$message.error(error)
